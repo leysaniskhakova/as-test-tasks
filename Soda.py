@@ -66,6 +66,14 @@ class Journal:
 			cls.instance.records = []
 		return cls.instance
 
+	def add_record(self, soda, count):
+		data = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+		rec = JournalEntry(soda, count, data)
+		self.records.append(rec)
+
+	def __repr__(self):
+		return '\n'.join(map(str, self.records))
+
 
 class JournalEntry:
 
@@ -90,7 +98,6 @@ while True:
 	else:
 		print('Такой фабрики не существует. Пожалуйста, введите название фабрики и количество бутылок еще раз')
 		continue
-	rec = JournalEntry(_soda.create(), int(bottles_count), strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 	journal = Journal()
-	journal.records.append(rec)
-	print(journal.records)
+	journal.add_record(_soda.create(), int(bottles_count))
+	print(journal)
